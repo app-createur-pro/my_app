@@ -32,34 +32,39 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.lightGreen,
-        ),
-        body: Center(
-          child: Container(
-            width: 200,
-            height: 200,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Colors.green, Colors.orange],
-                stops: [0.0, 0.7]
+      body: Padding(
+        padding: const EdgeInsets.all(50.0),
+        child: Form(
+          child: ListView(
+            children: <Widget>[
+              TextFormField(
+                decoration: InputDecoration(
+                    labelText: 'Address'
+                ),
               ),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black,
-                  offset: Offset(-3, -3),
-                  blurRadius: 7
-               )
-              ],
-              color: Colors.purple,
-              border: Border.all(
-                color: Colors.green,
-                width: 15,
+              SizedBox(height: 16.0,),
+              TextFormField(
+                decoration: InputDecoration(
+                    labelText: 'City'
+                ),
               ),
-              borderRadius: BorderRadius.all(Radius.circular(20))
-            ),
+              SizedBox(height: 16.0,),
+              TextFormField(
+                decoration: InputDecoration(
+                    labelText: 'Address'
+                ),
+              ),
+              SizedBox(height: 16.0,),
+              RaisedButton(
+                child: Text('SUBMIT'),
+                onPressed: () {
+                  // submit the form
+                },
+              )
+            ],
           ),
-        )
+        ),
+      ),
     );
   }
 }
