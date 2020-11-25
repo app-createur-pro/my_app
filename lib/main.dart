@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.red,
+        primaryColor: Colors.green[100],
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: MyHomePage(title: 'Titre'),
@@ -30,40 +30,31 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(50.0),
-        child: Form(
-          child: ListView(
-            children: <Widget>[
-              TextFormField(
-                decoration: InputDecoration(
-                    labelText: 'Address'
-                ),
+      appBar: AppBar(),
+      body: Row(
+        //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          Flexible(
+            flex: 1,
+            fit: FlexFit.tight,
+            child: Container(
+              color: Colors.green,
+              child: Text(
+                'Container 1',
+                textAlign: TextAlign.center,
               ),
-              SizedBox(height: 16.0,),
-              TextFormField(
-                decoration: InputDecoration(
-                    labelText: 'City'
-                ),
-              ),
-              SizedBox(height: 16.0,),
-              TextFormField(
-                decoration: InputDecoration(
-                    labelText: 'Address'
-                ),
-              ),
-              SizedBox(height: 16.0,),
-              RaisedButton(
-                child: Text('SUBMIT'),
-                onPressed: () {
-                  // submit the form
-                },
-              )
-            ],
+            ),
           ),
-        ),
+          Flexible(
+            flex: 1,
+            fit: FlexFit.loose,
+            child: Container(
+              color: Colors.amber,
+              child: Text('Container 2'),
+            ),
+          ),
+        ],
       ),
     );
   }
