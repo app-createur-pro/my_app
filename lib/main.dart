@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-void main() {
+void main() async {
   runApp(MyApp());
 }
 
@@ -28,34 +29,39 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
+  List<Color>colors = [
+    Colors.green,
+    Colors.red,
+    Colors.grey,
+    Colors.yellow,
+    Colors.purple,
+    Colors.orange,
+  ];
+
+  void faireCeciSiPortrait(Orientation orientation) {
+    //je vais enregistrer tel élément quelque part sans forcément toucher au design
+  }
+
   @override
   Widget build(BuildContext context) {
+
+    Orientation orientation = MediaQuery.of(context).orientation;
+    faireCeciSiPortrait(orientation);
+
     return Scaffold(
-      appBar: AppBar(),
-      body: Row(
-        //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          Flexible(
-            flex: 1,
-            fit: FlexFit.tight,
-            child: Container(
-              color: Colors.green,
-              child: Text(
-                'Container 1',
-                textAlign: TextAlign.center,
+        appBar: AppBar(),
+        body: OrientationBuilder(
+          builder: (context, orientation) {
+            return GridView.count(
+              crossAxisCount: (orientation == Orientation.portrait) ? 2 : 3,
+              children: List.generate(colors.length, (index) =>
+                  Container(
+                    color: colors[index],
+                  )
               ),
-            ),
-          ),
-          Flexible(
-            flex: 1,
-            fit: FlexFit.loose,
-            child: Container(
-              color: Colors.amber,
-              child: Text('Container 2'),
-            ),
-          ),
-        ],
-      ),
+            );
+          },
+        )
     );
   }
 }
