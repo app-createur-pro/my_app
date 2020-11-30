@@ -28,7 +28,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     print("build method called in home page state");
-    double appHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -37,10 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Container(
-              color: Colors.red,
-              height: appHeight/4,
-            ),
+            ContainerWidget(context: context,),
             Padding(
               padding: const EdgeInsets.all(40.0),
               child: TextField(
@@ -54,6 +50,25 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
      // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+}
+
+class ContainerWidget extends StatelessWidget {
+  const ContainerWidget({
+    Key key,
+    this.context
+  }) : super(key: key);
+
+  final BuildContext context;
+
+  @override
+  Widget build(BuildContext context) {
+    print("build container");
+    double appHeight = MediaQuery.of(context).size.height;
+    return Container(
+      color: Colors.red,
+      height: appHeight/2,
     );
   }
 }
