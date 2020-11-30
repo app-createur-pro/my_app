@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/text_widget.dart';
 
 void main() => runApp(new MyApp());
 
@@ -34,6 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    print("build method called in home page state");
     return new Scaffold(
       appBar: new AppBar(
         title: new Text(widget.title),
@@ -45,10 +47,9 @@ class _MyHomePageState extends State<MyHomePage> {
             new Text(
               'Pressing buttons is super fun man!',
             ),
-            new Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
-            ),
+            TextWidget(
+              counter: _counter,
+            )
           ],
         ),
       ),
