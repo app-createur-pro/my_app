@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
-void main() async {
-  runApp(MyApp());
-}
+void main() => runApp(new MyApp());
 
 class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return new MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primaryColor: Colors.green[100],
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+      theme: new ThemeData(
       ),
-      home: MyHomePage(title: 'Titre'),
+      home: new MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
@@ -24,44 +20,43 @@ class MyHomePage extends StatefulWidget {
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _MyHomePageState createState() => new _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int _counter = 0;
 
-  List<Color>colors = [
-    Colors.green,
-    Colors.red,
-    Colors.grey,
-    Colors.yellow,
-    Colors.purple,
-    Colors.orange,
-  ];
-
-  void faireCeciSiPortrait(Orientation orientation) {
-    //je vais enregistrer tel élément quelque part sans forcément toucher au design
+  void _incrementCounter() {
+    setState(() {
+      _counter++;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-
-    Orientation orientation = MediaQuery.of(context).orientation;
-    faireCeciSiPortrait(orientation);
-
-    return Scaffold(
-        appBar: AppBar(),
-        body: OrientationBuilder(
-          builder: (context, orientation) {
-            return GridView.count(
-              crossAxisCount: (orientation == Orientation.portrait) ? 2 : 3,
-              children: List.generate(colors.length, (index) =>
-                  Container(
-                    color: colors[index],
-                  )
-              ),
-            );
-          },
-        )
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text(widget.title),
+      ),
+      body: new Center(
+        child: new Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            new Text(
+              'Pressing buttons is super fun man!',
+            ),
+            new Text(
+              '$_counter',
+              style: Theme.of(context).textTheme.display1,
+            ),
+          ],
+        ),
+      ),
+      floatingActionButton: new FloatingActionButton(
+        onPressed: _incrementCounter,
+        tooltip: 'Increment',
+        child: new Icon(Icons.add),
+      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
