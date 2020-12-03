@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/text_widget.dart';
+import 'package:my_app/text_field_widget.dart';
 
 void main() => runApp(new MyApp());
 
@@ -25,6 +25,18 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
+  int _count = 0;
+
+  _incrementCounter() {
+    setState(() {
+      _count++;
+    });
+  }
+
+  _displayOnConsole() {
+    print("Le bouton est appuyé");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,12 +46,22 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            TextWidget(
-              text: "Text",
-            )
+          children: [
+            Text(_count.toString()),
+            Padding(
+              padding: const EdgeInsets.all(40.0),
+              child: ButtonsWidget(
+                displayOnConsole: _displayOnConsole,
+                increment: _incrementCounter,
+                changeNumber: (value) {
+                  setState(() {
+                    _count = value;
+                  });
+                }
+              ),
+            ),
           ],
-        ),
+        )
       ),
      // This trailing comma makes auto-formatting nicer for build methods.
     );
