@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/text_field_widget.dart';
 
 void main() => runApp(new MyApp());
 
@@ -18,46 +17,32 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => new _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
 
-  int _count = 0;
-
-  _incrementCounter() {
-    setState(() {
-      _count++;
-    });
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
   }
 
-  _changeCounter(int value) {
-    setState(() {
-      _count = value;
-    });
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
   }
 
-  String _displayCountChangeText() {
-    return "Counter changed to $_count";
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Callback"),
+        title: Text("App LifeCycle"),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(_count.toString()),
-          ButtonsWidget(
-            incrementCallback: _incrementCounter,
-            increment: _incrementCounter,
-            changeNumber: (value) => _changeCounter(value),
-            onChanged: (value) => _changeCounter(value),
-            onSet: (value) => _changeCounter(value),
-            onGet: _displayCountChangeText,
-          ),
-        ],
-      ),
+      body: Text("yo")
     );
   }
 }
