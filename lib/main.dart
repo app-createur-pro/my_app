@@ -4,21 +4,16 @@ import 'package:my_app/text_field_widget.dart';
 void main() => runApp(new MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
       title: 'Flutter Demo',
-      theme: new ThemeData(),
-      home: new MyHomePage(title: 'Flutter Demo Home Page'),
+      home: new MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-  final String title;
-
   @override
   _MyHomePageState createState() => new _MyHomePageState();
 }
@@ -33,37 +28,36 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  _displayOnConsole() {
-    print("Le bouton est appuyé");
+  _changeCounter(int value) {
+    setState(() {
+      _count = value;
+    });
+  }
+
+  String _displayCountChangeText() {
+    return "Counter changed to $_count";
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text("Callback"),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(_count.toString()),
-            Padding(
-              padding: const EdgeInsets.all(40.0),
-              child: ButtonsWidget(
-                displayOnConsole: _displayOnConsole,
-                increment: _incrementCounter,
-                changeNumber: (value) {
-                  setState(() {
-                    _count = value;
-                  });
-                }
-              ),
-            ),
-          ],
-        )
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(_count.toString()),
+          ButtonsWidget(
+            incrementCallback: _incrementCounter,
+            increment: _incrementCounter,
+            changeNumber: (value) => _changeCounter(value),
+            onChanged: (value) => _changeCounter(value),
+            onSet: (value) => _changeCounter(value),
+            onGet: _displayCountChangeText,
+          ),
+        ],
       ),
-     // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
