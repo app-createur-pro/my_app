@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'dart:io';
 
 void main() => runApp(new MyApp());
 
@@ -6,7 +8,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Cupertino',
       home: new MyHomePage(),
     );
   }
@@ -17,24 +19,9 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => new _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
+class _MyHomePageState extends State<MyHomePage> {
 
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addObserver(this);
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-
-  }
+  bool activate = false;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +29,22 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
       appBar: AppBar(
         title: Text("App LifeCycle"),
       ),
-      body: Text("yo")
+      body: (Platform.isAndroid)
+        ? Switch(
+        value: activate,
+        onChanged: (value) {
+          setState(() {
+            activate = value;
+          });
+        })
+        : CupertinoSwitch(
+        value: activate,
+        onChanged: (value) {
+          setState(() {
+            activate = value;
+          });
+      },
+      )
     );
   }
 }
