@@ -1,50 +1,42 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'dart:io';
 
 void main() => runApp(new MyApp());
 
 class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      title: 'Cupertino',
-      home: new MyHomePage(),
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+      ),
+      home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
+
+  final String title;
+
+  MyHomePage({Key key, this.title}) : super(key: key);
+
   @override
   _MyHomePageState createState() => new _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  bool activate = false;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("App LifeCycle"),
+        title: Text(widget.title),
       ),
-      body: (Platform.isAndroid)
-        ? Switch(
-        value: activate,
-        onChanged: (value) {
-          setState(() {
-            activate = value;
-          });
-        })
-        : CupertinoSwitch(
-        value: activate,
-        onChanged: (value) {
-          setState(() {
-            activate = value;
-          });
-      },
-      )
+      body: Center(
+        child: Text("hello world")
+      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
