@@ -1,5 +1,7 @@
 
 import 'package:flutter/material.dart';
+import 'package:my_app/providers/authentication_provider.dart';
+import 'package:provider/provider.dart';
 
 class SignInScreen extends StatelessWidget {
 
@@ -7,6 +9,9 @@ class SignInScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final _authenticationProvider = Provider.of<AuthenticationProvider>(context);
+
     return Scaffold(
       appBar: AppBar(),
       body: Padding(
@@ -34,6 +39,7 @@ class SignInScreen extends StatelessWidget {
               ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState.validate()) {
+                      _authenticationProvider.connect();
                       Navigator.of(context).pop();
                     }
                   },
