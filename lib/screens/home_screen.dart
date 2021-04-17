@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:my_app/my_textfield.dart';
 
 class HomeScreen extends StatefulWidget {
 
@@ -12,6 +13,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  
+  bool _displayFirst = true;
 
   @override
   Widget build(BuildContext context) {
@@ -21,13 +24,25 @@ class _HomeScreenState extends State<HomeScreen> {
         title: Text(widget.title),
       ),
       body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-             Text("text")
-            ],
-          )
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            if(_displayFirst)
+            MyTextField(key: UniqueKey()),
+            MyTextField(key: UniqueKey())
+          ],
+        )
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.remove),
+        onPressed: () {
+          setState(() {
+            _displayFirst = !_displayFirst;
+          });
+        },
+      ),// This trailing comma makes auto-formatting nicer for build methods.
     );
+
   }
 }
