@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/screens/home_screen.dart';
+import 'package:my_app/screens/page_one_screen.dart';
 
 void main() => runApp(new MyApp());
 
@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(),
-        home: HomeScreen(title: 'Accueil'),
+        home: PageOneScreen(title: 'Accueil'),
       );
   }
 }
