@@ -17,7 +17,7 @@ class _PageOneScreenState extends State<PageOneScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("titre"),
+        title: Text("myapp"),
       ),
       body: Center(
           child: Column(
