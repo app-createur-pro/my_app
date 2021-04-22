@@ -12,7 +12,7 @@ class PageTwoScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       body: Center(
-        child: Text(text),
+        child: Text("Page two"),
       ),
     );
 

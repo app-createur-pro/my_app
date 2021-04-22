@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:my_app/resources/constants.dart';
 
 class PageOneScreen extends StatefulWidget {
 
@@ -17,7 +16,7 @@ class _PageOneScreenState extends State<PageOneScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("myapp"),
+        title: Text("titre"),
       ),
       body: Center(
           child: Column(
@@ -26,7 +25,7 @@ class _PageOneScreenState extends State<PageOneScreen> {
              Text("Page one"),
               SizedBox(height: 10,),
               ElevatedButton(
-                  onPressed: () => Navigator.pushNamed(context, PAGE_TWO, arguments: 'Ceci est du texte'),
+                  onPressed: () => Navigator.pushNamed(context, '/PageTwo'),
                   child: Text("Page suivante")
               )
             ],
