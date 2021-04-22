@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/screens/page_one_screen.dart';
+import 'package:my_app/utils/route_generator.dart';
 
 void main() => runApp(new MyApp());
 
@@ -9,9 +9,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'Flutter Demo',
+        initialRoute: '/',
+        onGenerateRoute: RouteGenerator.generateRoute,
         debugShowCheckedModeBanner: false,
         theme: ThemeData(),
-        home: PageOneScreen(title: 'Accueil'),
+        //home: PageOneScreen(title: 'Accueil'),
       );
   }
 }
