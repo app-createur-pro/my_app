@@ -5,8 +5,12 @@ class NavigationController {
 
   Map<Widget, Function> appBarIcons;
   Map<Widget, Function> bottomBarIcons;
+  Map<Widget, Function> drawerIcon;
 
-  NavigationController.appBar() {
+  NavigationController.appBar({@required GlobalKey<ScaffoldState> scaffoldKey}) {
+    drawerIcon = {
+      Icon(Icons.menu): () => _openDrawer(scaffoldKey)
+    };
     appBarIcons = {
       Icon(Icons.add): _clickAddButton,
       Icon(Icons.camera): _clickCameraButton,
@@ -49,6 +53,12 @@ class NavigationController {
 
   void _clickSettingsButton() {
     print("click sur settings button");
+  }
+
+  //Drawer
+
+  void _openDrawer(GlobalKey<ScaffoldState> scaffoldKey) {
+    scaffoldKey.currentState.openDrawer();
   }
 
   

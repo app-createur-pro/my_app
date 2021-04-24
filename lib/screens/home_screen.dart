@@ -17,19 +17,27 @@ class _HomeScreenState extends State<HomeScreen> {
   NavigationController _appBarController;
   NavigationController _bottomBarController;
   int _currentIndex = 0;
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _appBarController = NavigationController.appBar();
+    _appBarController = NavigationController.appBar(scaffoldKey: _scaffoldKey);
     _bottomBarController = NavigationController.bottomBar();
   }
 
   @override
   Widget build(BuildContext context) {
-
+    var _safePadding = MediaQuery.of(context).padding.top;
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
+        leading: Builder(
+          builder: (context) => GestureDetector(
+              onTap: () => _appBarController.drawerIcon.values.toList()[0].call(),
+              child: _appBarController.drawerIcon.keys.toList()[0]
+          ),
+        ),
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -42,6 +50,18 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         titleSpacing: 40,
         centerTitle: true,
+      ),
+      drawer: Drawer(
+         child: Padding(
+           padding: EdgeInsets.only(top: _safePadding),
+           child: Column(
+             children: [
+               Text("Menu 1"),
+               SizedBox(height: 20,),
+               Text("Menu 2"),
+             ],
+           ),
+         ),
       ),
       body: Center(
           child: Column(
