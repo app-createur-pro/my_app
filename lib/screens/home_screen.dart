@@ -14,12 +14,15 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
 
-  NavigationController _navigationController;
+  NavigationController _appBarController;
+  NavigationController _bottomBarController;
+  int _currentIndex = 0;
 
   @override
   void initState() {
     super.initState();
-    _navigationController = NavigationController.appBar();
+    _appBarController = NavigationController.appBar();
+    _bottomBarController = NavigationController.bottomBar();
   }
 
   @override
@@ -30,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: _navigationController.appBarIcons.entries.map(
+          children: _appBarController.appBarIcons.entries.map(
                   (entry) => GestureDetector(
                     onTap: () => entry.value.call(),
                     child: entry.key,
@@ -47,7 +50,24 @@ class _HomeScreenState extends State<HomeScreen> {
               Text("text")
             ],
           )
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ), //
+      bottomNavigationBar: BottomNavigationBar(
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        currentIndex: _currentIndex,
+        onTap: (int index) {
+          setState(() {
+            _currentIndex = index;
+          });
+          _bottomBarController.bottomBarIcons.values.toList()[index].call();
+        },
+        items: _bottomBarController.bottomBarIcons.entries.map(
+                (entry) => BottomNavigationBarItem(
+                    icon: entry.key,
+                    label: ""
+                )
+        ).toList()
+      ),// This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 

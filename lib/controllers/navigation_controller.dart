@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 class NavigationController {
 
   Map<Widget, Function> appBarIcons;
-  
+  Map<Widget, Function> bottomBarIcons;
+
   NavigationController.appBar() {
     appBarIcons = {
       Icon(Icons.add): _clickAddButton,
@@ -13,6 +14,15 @@ class NavigationController {
       Icon(Icons.remove): _clickRemoveButton
     };
   }
+
+  NavigationController.bottomBar() {
+    bottomBarIcons = {
+      Icon(Icons.create): _clickPenButton,
+      Icon(Icons.settings): _clickSettingsButton,
+    };
+  }
+
+  //App bar
 
   void _clickAddButton() {
     print("click sur add button");
@@ -30,5 +40,16 @@ class NavigationController {
   void _clickRemoveButton() {
     print("click sur remove button");
   }
+
+  //Bottom bar
+
+  void _clickPenButton() {
+    print("click sur pen button");
+  }
+
+  void _clickSettingsButton() {
+    print("click sur settings button");
+  }
+
   
 }
