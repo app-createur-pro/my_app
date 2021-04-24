@@ -1,12 +1,12 @@
 
 import 'package:flutter/material.dart';
 
-class UnknownPageScreen extends StatelessWidget {
+class SecondScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Text("Page introuvable"),
+      body: Text("texte"),
     );
   }
 }
