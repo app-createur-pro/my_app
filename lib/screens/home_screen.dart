@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/controllers/navigation_controller.dart';
-import 'package:my_app/screens/second_screen.dart';
 import 'package:my_app/widgets/app_bar_widget.dart';
 import 'package:my_app/widgets/bottom_navigation_bar_widget.dart';
 import 'package:my_app/widgets/drawer_widget.dart';
@@ -9,7 +8,7 @@ class HomeScreen extends StatefulWidget {
 
   final String title;
 
-  HomeScreen({Key key, this.title}) : super(key: key);
+  HomeScreen({Key? key, required this.title}) : super(key: key);
 
   @override
   _HomeScreenState createState() => new _HomeScreenState();
@@ -17,8 +16,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
 
-  NavigationController _appBarController;
-  NavigationController _bottomBarController;
+  late NavigationController _appBarController;
+  late NavigationController _bottomBarController;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override

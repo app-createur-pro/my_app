@@ -8,7 +8,7 @@ class AppBarWidget extends StatelessWidget with PreferredSizeWidget {
   @override
   final Size preferredSize;
 
-  AppBarWidget({Key key, @required this.appBarController})
+  AppBarWidget({Key? key, required this.appBarController})
       : preferredSize = Size.fromHeight(50),
         super(key: key);
 
