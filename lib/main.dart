@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/screens/home_screen.dart';
 
-void main() => runApp(new MyApp());
+void main() async {
+  runApp(App());
+}
 
-class MyApp extends StatelessWidget {
-
-  // This widget is the root of your application.
+class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    String title = 'API & State management';
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: title,
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(),
-      home: HomeScreen(title: 'Buttons - Flutter2'),
+      theme: ThemeData(
+        primaryColor: Color(0xFFf7921b),
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      home: HomeScreen(title: title),
     );
   }
 }
