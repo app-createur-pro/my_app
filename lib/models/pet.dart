@@ -1,51 +1,68 @@
+import 'dart:convert';
+
 import 'package:my_app/models/category.dart';
 import 'package:my_app/models/tag.dart';
 
 class Pet {
-  int? id;
-  Category? category;
   String? name;
   List<String>? photoUrls;
+  int? id;
+  Category? category;
   List<Tag>? tags;
-  String? status;
+  Status? status;
 
   Pet({
-    required this.id,
-    this.category,
     this.name,
     this.photoUrls,
+    required this.id,
+    this.category,
     this.tags,
     this.status,
   });
 
   Pet.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    category = json['category'] != null
-        ? new Category.fromJson(json['category'])
-        : null;
     name = json['name'];
     photoUrls = json['photoUrls'].cast<String>();
+    id = json['id'];
+    category =
+        json['category'] != null ? Category.fromJson(json['category']) : null;
     if (json['tags'] != null) {
       tags = <Tag>[];
       json['tags'].forEach((v) {
         tags!.add(new Tag.fromJson(v));
       });
     }
-    status = json['status'];
+    status = stringToStatus(json['status']);
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
+  String toJson() {
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['name'] = this.name;
+    data['photoUrls'] = this.photoUrls;
+    data['id'] = this.id.toString();
     if (this.category != null) {
       data['category'] = this.category!.toJson();
     }
-    data['name'] = this.name;
-    data['photoUrls'] = this.photoUrls;
-    if (this.tags != null) {
-      data['tags'] = this.tags!.map((v) => v.toJson()).toList();
+    data['tags'] = Tag().encodeTags(this.tags);
+    data['status'] = statusToString(this.status ?? Status.unavailable);
+    return jsonEncode(data);
+  }
+
+  Status stringToStatus(String status) {
+    if (status == "available") {
+      return Status.available;
+    } else {
+      return Status.unavailable;
     }
-    data['status'] = this.status;
-    return data;
+  }
+
+  String statusToString(Status status) {
+    if (status == Status.available) {
+      return "available";
+    } else {
+      return "unavailable";
+    }
   }
 }
+
+enum Status { available, unavailable }
