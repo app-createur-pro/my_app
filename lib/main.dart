@@ -7,11 +7,11 @@ void main() async {
   await EasyLocalization.ensureInitialized();
   runApp(
     EasyLocalization(
-        supportedLocales: [Locale('en', 'US'), Locale('fr', 'FR')],
-        path:
-            'assets/translations', // <-- change the path of the translation files
-        fallbackLocale: Locale('fr', 'FR'),
-        child: App()),
+      supportedLocales: [Locale('en', 'US'), Locale('fr', 'FR')],
+      path: 'assets/translations',
+      fallbackLocale: Locale('fr', 'FR'),
+      child: App(),
+    ),
   );
 }
 

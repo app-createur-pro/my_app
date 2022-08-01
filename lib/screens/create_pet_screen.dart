@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:my_app/generated/locale_keys.g.dart';
 import 'package:my_app/models/category.dart';
 import 'package:my_app/models/pet.dart';
 import 'package:my_app/models/tag.dart';
@@ -48,12 +49,12 @@ class CreatePetScreen extends StatelessWidget {
                   );
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text('pet_created'.tr()),
+                      content: Text(LocaleKeys.pet_created.tr()),
                     ),
                   );
                 }
               },
-              child: Text('create_a_pet'.tr()),
+              child: Text(LocaleKeys.create_a_pet.tr()),
             ),
           ],
         ),

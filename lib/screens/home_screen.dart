@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:my_app/generated/locale_keys.g.dart';
 import 'package:my_app/repository/pet_repository.dart';
 import 'package:my_app/screens/create_pet_screen.dart';
 
@@ -51,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                   decoration: InputDecoration(
                       border: InputBorder.none,
-                      hintText: 'enter_pet_id'.tr(),
+                      hintText: LocaleKeys.enter_pet_id.tr(),
                       fillColor: Colors.grey[300],
                       filled: true),
                   keyboardType: TextInputType.number,
@@ -63,14 +64,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     PetRepository.getPet();
                   }
                 },
-                child: Text('display_pet'.tr()),
+                child: Text(LocaleKeys.display_pet.tr()),
               ),
               const SizedBox(height: 80),
               Text(
-                'the_pet_displayed'.tr(namedArgs: {'petName': "'pet name'"}),
+                LocaleKeys.the_pet_displayed
+                    .tr(namedArgs: {'petName': "'pet name'"}),
               ),
-              const SizedBox(height: 80),
-              Text('language_number').plural(3),
             ],
           ),
         ),
