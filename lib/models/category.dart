@@ -8,7 +8,7 @@ class Category {
   });
 
   Category.fromJson(Map<String, dynamic> json) {
-    id = int.tryParse(json['id']);
+    id = json['id'];
     name = json['name'];
   }
 

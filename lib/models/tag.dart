@@ -1,5 +1,5 @@
 class Tag {
-  String? id;
+  int? id;
   String? name;
 
   Tag({this.id, this.name});
@@ -12,7 +12,7 @@ class Tag {
   Map<String, dynamic> toJson(tag) {
     final Map<String, dynamic> data = Map<String, dynamic>();
     data['id'] = tag.id;
-    data['name'] = tag.name;
+    data['name'] = tag.handleAPIResponse;
     return data;
   }
 

@@ -20,19 +20,20 @@ class Pet {
     this.status,
   });
 
-  Pet.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
-    photoUrls = json['photoUrls'].cast<String>();
-    id = json['id'];
+  Pet.fromJson(String json) {
+    Map<String, dynamic> _json = jsonDecode(json);
+    name = _json['name'];
+    photoUrls = _json['photoUrls'].cast<String>();
+    id = _json['id'];
     category =
-        json['category'] != null ? Category.fromJson(json['category']) : null;
-    if (json['tags'] != null) {
+        _json['category'] != null ? Category.fromJson(_json['category']) : null;
+    if (_json['tags'] != null) {
       tags = <Tag>[];
-      json['tags'].forEach((v) {
-        tags!.add(new Tag.fromJson(v));
+      _json['tags'].forEach((v) {
+        tags!.add(Tag.fromJson(v));
       });
     }
-    status = stringToStatus(json['status']);
+    status = stringToStatus(_json['status']);
   }
 
   String toJson() {

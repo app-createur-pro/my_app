@@ -61,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    PetRepository.getPet();
+                    PetRepository().getPet();
                   }
                 },
                 child: Text(LocaleKeys.display_pet.tr()),

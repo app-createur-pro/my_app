@@ -1,13 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:my_app/generated/locale_keys.g.dart';
-import 'package:my_app/models/category.dart';
-import 'package:my_app/models/pet.dart';
-import 'package:my_app/models/tag.dart';
-import 'package:my_app/repository/pet_repository.dart';
+import 'package:my_app/view_models/create_pet_view_model.dart';
 
 class CreatePetScreen extends StatelessWidget {
-  const CreatePetScreen({Key? key}) : super(key: key);
+  CreatePetScreen({Key? key}) : super(key: key);
+
+  final CreatePetViewModel createPetViewModel = CreatePetViewModel();
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +14,7 @@ class CreatePetScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       body: Form(
+        key: _formKey,
         child: Column(
           children: [
             SizedBox(
@@ -30,23 +30,9 @@ class CreatePetScreen extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  PetRepository.createPet(
-                    Pet(
-                      name: "Pilou",
-                      photoUrls: ["veniam ad", "ipsum ullamco Ut in irure"],
-                      id: 50926536738,
-                      category: Category(
-                        id: 37405040,
-                        name: "chien",
-                      ),
-                      tags: [
-                        Tag(id: "66356411", name: "incididunt"),
-                        Tag(id: "13377129", name: "magna"),
-                      ],
-                      status: Status.available,
-                    ),
-                  );
+                if (_formKey.currentState != null &&
+                    _formKey.currentState!.validate()) {
+                  createPetViewModel.createPet();
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(LocaleKeys.pet_created.tr()),
