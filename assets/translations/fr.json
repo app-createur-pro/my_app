@@ -4,5 +4,11 @@
   "display_pet": "Afficher un animal",
   "enter_pet_name": "Entrez un nom",
   "enter_pet_id": "Entrez un id",
-  "the_pet_displayed": "The pet you display is {petName}"
+  "the_pet_displayed": "The pet you display is {petName}",
+  "language_number": {
+    "zero": "Vous avez {} langue d'activée",
+    "one": "Vous avez {} langue d'activée",
+    "many": "Vous avez {} langues d'activées",
+    "other": "You have {} languages activated"
+  }
 }

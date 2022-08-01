@@ -65,11 +65,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
                 child: Text('display_pet'.tr()),
               ),
-              SizedBox(
-                height: 80,
-              ),
+              const SizedBox(height: 80),
               Text(
-                  'the_pet_displayed'.tr(namedArgs: {'petName': "'pet name'"})),
+                'the_pet_displayed'.tr(namedArgs: {'petName': "'pet name'"}),
+              ),
+              const SizedBox(height: 80),
+              Text('language_number').plural(3),
             ],
           ),
         ),
