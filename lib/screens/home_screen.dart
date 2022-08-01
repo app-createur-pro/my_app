@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/models/category.dart';
-import 'package:my_app/models/pet.dart';
-import 'package:my_app/models/tag.dart';
 import 'package:my_app/repository/pet_repository.dart';
 import 'package:my_app/screens/create_pet_screen.dart';
 
@@ -19,25 +16,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final _formKey = GlobalKey<FormState>();
-
-  @override
-  void initState() {
-    super.initState();
-    PetRepository.createPet(
-      Pet(
-        name: "Pilou",
-        photoUrls: ["veniam ad", "ipsum ullamco Ut in irure"],
-        id: 50926536738,
-        category: Category(id: 37405040, name: "chien"),
-        tags: [
-          Tag(id: "66356411", name: "incididunt"),
-          Tag(id: "13377129", name: "magna"),
-        ],
-        status: Status.available,
-      ),
-    );
-    //PetRepository.getPet();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,17 +59,15 @@ class _HomeScreenState extends State<HomeScreen> {
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Processing Data')),
-                    );
+                    PetRepository.getPet();
                   }
                 },
-                child: const Text('Afficher pet'),
+                child: const Text('Afficher animal'),
               ),
               SizedBox(
                 height: 80,
               ),
-              Text('Le pet que vous affichez est :'),
+              Text('L\'animal que vous affichez est :'),
             ],
           ),
         ),

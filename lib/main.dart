@@ -1,8 +1,18 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:my_app/screens/home_screen.dart';
 
 void main() async {
-  runApp(App());
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
+  runApp(
+    EasyLocalization(
+        supportedLocales: [Locale('en', 'US'), Locale('fr', 'FR')],
+        path:
+            'assets/translations', // <-- change the path of the translation files
+        fallbackLocale: Locale('fr', 'FR'),
+        child: App()),
+  );
 }
 
 class App extends StatelessWidget {
@@ -10,6 +20,9 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     String title = 'API & State management';
     return MaterialApp(
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
       title: title,
       debugShowCheckedModeBanner: false,
       theme: ThemeData(

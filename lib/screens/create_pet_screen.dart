@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/models/category.dart';
+import 'package:my_app/models/pet.dart';
+import 'package:my_app/models/tag.dart';
+import 'package:my_app/repository/pet_repository.dart';
 
 class CreatePetScreen extends StatelessWidget {
   const CreatePetScreen({Key? key}) : super(key: key);
@@ -25,16 +29,29 @@ class CreatePetScreen extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                // Validate returns true if the form is valid, or false otherwise.
                 if (_formKey.currentState!.validate()) {
-                  // If the form is valid, display a snackbar. In the real world,
-                  // you'd often call a server or save the information in a database.
+                  PetRepository.createPet(
+                    Pet(
+                      name: "Pilou",
+                      photoUrls: ["veniam ad", "ipsum ullamco Ut in irure"],
+                      id: 50926536738,
+                      category: Category(
+                        id: 37405040,
+                        name: "chien",
+                      ),
+                      tags: [
+                        Tag(id: "66356411", name: "incididunt"),
+                        Tag(id: "13377129", name: "magna"),
+                      ],
+                      status: Status.available,
+                    ),
+                  );
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Processing Data')),
+                    const SnackBar(content: Text('Animal créé')),
                   );
                 }
               },
-              child: const Text('Créer pet'),
+              child: const Text('Créer animal'),
             ),
           ],
         ),
