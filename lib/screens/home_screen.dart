@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:my_app/repository/pet_repository.dart';
 import 'package:my_app/screens/create_pet_screen.dart';
@@ -50,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                   decoration: InputDecoration(
                       border: InputBorder.none,
-                      hintText: 'Entrez un id',
+                      hintText: 'enter_pet_id'.tr(),
                       fillColor: Colors.grey[300],
                       filled: true),
                   keyboardType: TextInputType.number,
@@ -62,12 +63,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     PetRepository.getPet();
                   }
                 },
-                child: const Text('Afficher animal'),
+                child: Text('display_pet'.tr()),
               ),
               SizedBox(
                 height: 80,
               ),
-              Text('L\'animal que vous affichez est :'),
+              Text(
+                  'the_pet_displayed'.tr(namedArgs: {'petName': "'pet name'"})),
             ],
           ),
         ),

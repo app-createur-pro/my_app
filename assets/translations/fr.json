@@ -1,3 +1,8 @@
 {
-
+  "pet_created": "L'animal a été créé",
+  "create_a_pet": "Créer un animal",
+  "display_pet": "Afficher un animal",
+  "enter_pet_name": "Entrez un nom",
+  "enter_pet_id": "Entrez un id",
+  "the_pet_displayed": "The pet you display is {petName}"
 }

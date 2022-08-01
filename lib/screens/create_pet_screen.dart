@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:my_app/models/category.dart';
 import 'package:my_app/models/pet.dart';
@@ -18,7 +19,6 @@ class CreatePetScreen extends StatelessWidget {
             SizedBox(
               height: 30,
             ),
-            Text('Entrez un nom'),
             TextFormField(
               validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -47,11 +47,13 @@ class CreatePetScreen extends StatelessWidget {
                     ),
                   );
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Animal créé')),
+                    SnackBar(
+                      content: Text('pet_created'.tr()),
+                    ),
                   );
                 }
               },
-              child: const Text('Créer animal'),
+              child: Text('create_a_pet'.tr()),
             ),
           ],
         ),

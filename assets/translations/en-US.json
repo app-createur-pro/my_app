@@ -1,3 +1,8 @@
 {
-
+  "pet_created": "The pet was created",
+  "create_a_pet": "Create a pet",
+  "display_pet": "Display pet",
+  "enter_pet_name": "Enter a name",
+  "enter_pet_id": "Enter an id",
+  "the_pet_displayed": "The pet you display is {petName}"
 }
