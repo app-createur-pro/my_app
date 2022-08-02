@@ -4,12 +4,11 @@ import 'package:my_app/models/pet.dart';
 
 class PetRepository {
   static final String baseUrl = 'https://petstore.swagger.io/v2/';
-  static final String createPetUrl = 'pet';
-  static final String getPetUrl = 'pet/5087';
+  static final String petUrl = 'pet/';
 
   Future<Pet?> createPet(Pet pet) async {
     var jsonPet = pet.toJson();
-    var url = Uri.parse('$baseUrl$createPetUrl');
+    var url = Uri.parse(baseUrl + petUrl);
     var response = await http.post(
       url,
       body: jsonPet,
@@ -22,8 +21,8 @@ class PetRepository {
     return petResponse;
   }
 
-  Future<Pet?> getPet() async {
-    var url = Uri.parse('$baseUrl$getPetUrl');
+  Future<Pet?> getPet(String petId) async {
+    var url = Uri.parse(baseUrl + petUrl + petId);
     var response = await http.get(url);
     Pet petResponse = Pet.fromJson(ApiResponse.handleAPIResponse(response));
     return petResponse;
