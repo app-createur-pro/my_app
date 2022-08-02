@@ -1,3 +1,4 @@
+import 'package:my_app/data/exceptions.dart';
 import 'package:my_app/models/category.dart';
 import 'package:my_app/models/pet.dart';
 import 'package:my_app/models/tag.dart';
@@ -7,10 +8,11 @@ class CreatePetViewModel {
   PetRepository petRepository = PetRepository();
 
   Pet? pet;
-  Exception? exception;
+  String? error;
 
   createPet() async {
     try {
+      error = null;
       pet = await petRepository.createPet(
         Pet(
           name: "Pilou",
@@ -27,9 +29,8 @@ class CreatePetViewModel {
           status: Status.available,
         ),
       );
-      print("");
     } catch (e) {
-      return null;
+      error = ExceptionHandler.getErrorMessage(e);
     }
   }
 }

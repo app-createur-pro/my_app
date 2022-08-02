@@ -1,14 +1,11 @@
 {
-  "pet_created": "L'animal a été créé",
   "create_a_pet": "Créer un animal",
   "display_pet": "Afficher un animal",
   "enter_pet_name": "Entrez un nom",
   "enter_pet_id": "Entrez un id",
-  "the_pet_displayed": "The pet you display is {petName}",
-  "language_number": {
-    "zero": "Vous avez {} langue d'activée",
-    "one": "Vous avez {} langue d'activée",
-    "many": "Vous avez {} langues d'activées",
-    "other": "You have {} languages activated"
-  }
+  "error_not_found": "Erreur, élément non trouvé",
+  "error_not_authorized": "Erreur, accès non autorisé",
+  "error_unknown": "Erreur inconnue",
+  "pet_created": "L'animal a été créé",
+  "the_pet_displayed": "L'animal que vous affichez est {petName}"
 }

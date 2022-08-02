@@ -22,9 +22,10 @@ class PetRepository {
     return petResponse;
   }
 
-  Future getPet() async {
+  Future<Pet?> getPet() async {
     var url = Uri.parse('$baseUrl$getPetUrl');
     var response = await http.get(url);
-    print("response get pet : ${response.body}");
+    Pet petResponse = Pet.fromJson(ApiResponse.handleAPIResponse(response));
+    return petResponse;
   }
 }

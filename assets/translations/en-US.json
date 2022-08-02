@@ -1,14 +1,11 @@
 {
-  "pet_created": "The pet was created",
   "create_a_pet": "Create a pet",
   "display_pet": "Display pet",
   "enter_pet_name": "Enter a name",
   "enter_pet_id": "Enter an id",
-  "the_pet_displayed": "The pet you display is {petName}",
-  "language_number": {
-    "zero": "You have {} language activated",
-    "one": "You have {} language activated",
-    "many": "You have {} languages activated",
-    "other": "You have {} languages activated"
-  }
+  "error_not_found": "Error, element not found",
+  "error_not_authorized": "Error, access not authorized",
+  "error_unknown": "Unknown error",
+  "pet_created": "The pet was created",
+  "the_pet_displayed": "The pet you display is {petName}"
 }
