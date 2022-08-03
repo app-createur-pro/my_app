@@ -12,7 +12,7 @@ class Tag {
   Map<String, dynamic> toJson(tag) {
     final Map<String, dynamic> data = Map<String, dynamic>();
     data['id'] = tag.id;
-    data['name'] = tag.handleAPIResponse;
+    data['name'] = tag.name;
     return data;
   }
 

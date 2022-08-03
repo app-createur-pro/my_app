@@ -8,9 +8,12 @@ class HomeViewModel {
   Pet? pet;
   String? error;
 
-  displayPet() async {
+  String? textFieldValue;
+
+  getPet(String petId) async {
     try {
-      pet = await petRepository.getPet();
+      error = null;
+      pet = await petRepository.getPet(petId);
     } catch (e) {
       error = ExceptionHandler.getErrorMessage(e);
     }

@@ -9,15 +9,16 @@ class CreatePetViewModel {
 
   Pet? pet;
   String? error;
+  String? textFieldValue;
 
-  createPet() async {
+  createPet({required String name}) async {
     try {
       error = null;
       pet = await petRepository.createPet(
         Pet(
-          name: "Pilou",
+          name: name,
           photoUrls: ["veniam ad", "ipsum ullamco Ut in irure"],
-          id: 50926536738,
+          id: 1,
           category: Category(
             id: 37405040,
             name: "chien",
@@ -29,6 +30,7 @@ class CreatePetViewModel {
           status: Status.available,
         ),
       );
+      return pet;
     } catch (e) {
       error = ExceptionHandler.getErrorMessage(e);
     }

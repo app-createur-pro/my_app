@@ -6,6 +6,6 @@
   "error_not_found": "Error, element not found",
   "error_not_authorized": "Error, access not authorized",
   "error_unknown": "Unknown error",
-  "pet_created": "The pet was created",
+  "pet_created": "The pet {petName} with id {petId} was created",
   "the_pet_displayed": "The pet you display is {petName}"
 }

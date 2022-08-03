@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:my_app/generated/locale_keys.g.dart';
-import 'package:my_app/repository/pet_repository.dart';
 import 'package:my_app/screens/create_pet_screen.dart';
+import 'package:my_app/view_models/home_view_model.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -17,6 +17,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  HomeViewModel homeViewModel = HomeViewModel();
+
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -48,6 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     if (value == null || value.isEmpty) {
                       return 'Please enter some text';
                     }
+                    homeViewModel.textFieldValue = value;
                     return null;
                   },
                   decoration: InputDecoration(
@@ -61,16 +64,24 @@ class _HomeScreenState extends State<HomeScreen> {
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    PetRepository().getPet("5087");
+                    homeViewModel.getPet(homeViewModel.textFieldValue ?? "");
                   }
                 },
                 child: Text(LocaleKeys.display_pet.tr()),
               ),
               const SizedBox(height: 80),
-              Text(
-                LocaleKeys.the_pet_displayed
-                    .tr(namedArgs: {'petName': "'pet name'"}),
-              ),
+              homeViewModel.pet != null || homeViewModel.error != null
+                  ? homeViewModel.error != null
+                      ? Text(
+                          homeViewModel.error!,
+                          style: TextStyle(color: Colors.red),
+                        )
+                      : Text(
+                          LocaleKeys.the_pet_displayed.tr(
+                            namedArgs: {'petName': "'pet name'"},
+                          ),
+                        )
+                  : const SizedBox.shrink(),
             ],
           ),
         ),
