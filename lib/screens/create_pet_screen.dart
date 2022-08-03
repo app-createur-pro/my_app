@@ -26,6 +26,7 @@ class CreatePetScreen extends StatelessWidget {
                 height: 30,
               ),
               TextFormField(
+                controller: createPetViewModel.textEditingController,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter some text';

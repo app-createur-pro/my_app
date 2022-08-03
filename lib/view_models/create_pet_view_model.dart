@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:my_app/data/exceptions.dart';
 import 'package:my_app/models/category.dart';
 import 'package:my_app/models/pet.dart';
@@ -10,6 +11,7 @@ class CreatePetViewModel {
   Pet? pet;
   String? error;
   String? textFieldValue;
+  TextEditingController textEditingController = TextEditingController();
 
   createPet({required String name}) async {
     try {
@@ -30,6 +32,7 @@ class CreatePetViewModel {
           status: Status.available,
         ),
       );
+      textEditingController.clear();
       return pet;
     } catch (e) {
       error = ExceptionHandler.getErrorMessage(e);
