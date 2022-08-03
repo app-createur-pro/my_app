@@ -12,6 +12,7 @@ class CreatePetViewModel {
   String? error;
   String? textFieldValue;
   TextEditingController textEditingController = TextEditingController();
+  int? lastIdCreated;
 
   createPet({required String name}) async {
     try {
@@ -33,6 +34,7 @@ class CreatePetViewModel {
         ),
       );
       textEditingController.clear();
+      lastIdCreated = pet?.id;
       return pet;
     } catch (e) {
       error = ExceptionHandler.getErrorMessage(e);
