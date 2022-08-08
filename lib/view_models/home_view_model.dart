@@ -1,8 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:my_app/data/exceptions.dart';
 import 'package:my_app/models/pet.dart';
 import 'package:my_app/repository/pet_repository.dart';
 
-class HomeViewModel {
+class HomeViewModel with ChangeNotifier {
   PetRepository petRepository = PetRepository();
 
   Pet? pet;
@@ -10,12 +11,16 @@ class HomeViewModel {
 
   String? textFieldValue;
 
-  getPet(String petId) async {
+  void getPet() async {
     try {
       error = null;
-      pet = await petRepository.getPet(petId);
+      pet = await petRepository.getPet(textFieldValue ?? "");
+      notifyListeners();
     } catch (e) {
       error = ExceptionHandler.getErrorMessage(e);
+      notifyListeners();
     }
   }
+
+  void setTextFieldValue(String value) => textFieldValue = value;
 }

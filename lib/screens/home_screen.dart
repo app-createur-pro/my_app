@@ -5,6 +5,7 @@ import 'package:my_app/models/pet.dart';
 import 'package:my_app/screens/create_pet_screen.dart';
 import 'package:my_app/view_models/create_pet_view_model.dart';
 import 'package:my_app/view_models/home_view_model.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -19,14 +20,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  HomeViewModel homeViewModel = HomeViewModel();
   CreatePetViewModel createPetViewModel = CreatePetViewModel();
 
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    Pet? pet = homeViewModel.pet;
+    Pet? pet = context.watch<HomeViewModel?>()?.pet;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -54,47 +55,54 @@ class _HomeScreenState extends State<HomeScreen> {
                     if (value == null || value.isEmpty) {
                       return 'Please enter some text';
                     }
-                    homeViewModel.textFieldValue = value;
+                    context.read<HomeViewModel>().setTextFieldValue(value);
                     return null;
                   },
                   decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: LocaleKeys.enter_pet_id.tr(),
-                      fillColor: Colors.grey[300],
-                      filled: true),
+                    border: InputBorder.none,
+                    hintText: LocaleKeys.enter_pet_id.tr(),
+                    fillColor: Colors.grey[300],
+                    filled: true,
+                  ),
                   keyboardType: TextInputType.number,
                 ),
               ),
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    homeViewModel.getPet(homeViewModel.textFieldValue ?? "");
+                    context.read<HomeViewModel>().getPet();
                   }
                 },
                 child: Text(LocaleKeys.display_pet.tr()),
               ),
               const SizedBox(height: 80),
-              displayResponseText(),
+              _ResponseText(),
               const SizedBox(height: 20),
-              if (pet != null && pet.id != null) Text((pet.id.toString()))
             ],
           ),
         ),
       ),
     );
   }
+}
 
-  Widget displayResponseText() {
-    if (homeViewModel.pet != null || homeViewModel.error != null) {
-      if (homeViewModel.error != null) {
+class _ResponseText extends StatelessWidget {
+  const _ResponseText({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    Pet? pet = context.watch<HomeViewModel?>()?.pet;
+    String? error = context.watch<HomeViewModel?>()?.error;
+    if (pet != null || error != null) {
+      if (error != null) {
         return Text(
-          homeViewModel.error!,
+          error,
           style: TextStyle(color: Colors.red),
         );
       } else {
         return Text(
           LocaleKeys.the_pet_displayed.tr(
-            namedArgs: {'petName': "'pet name'"},
+            namedArgs: {'petName': pet?.name ?? "inconnu"},
           ),
         );
       }

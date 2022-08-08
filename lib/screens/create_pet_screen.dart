@@ -49,10 +49,12 @@ class CreatePetScreen extends StatelessWidget {
                       );
                     } else if (pet != null) {
                       NavigationUtils.displaySnackBar(
-                        text: LocaleKeys.pet_created.tr(namedArgs: {
-                          'petName': "${pet.name}",
-                          'petId': "${pet.id}",
-                        }),
+                        text: LocaleKeys.pet_created.tr(
+                          namedArgs: {
+                            'petName': "${pet.name}",
+                            'petId': "${pet.id}",
+                          },
+                        ),
                         context: context,
                       );
                     }

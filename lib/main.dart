@@ -1,16 +1,28 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:my_app/screens/home_screen.dart';
+import 'package:my_app/view_models/home_view_model.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   runApp(
     EasyLocalization(
-      supportedLocales: [Locale('en', 'US'), Locale('fr', 'FR')],
+      supportedLocales: [
+        Locale('en', 'US'),
+        Locale('fr', 'FR'),
+      ],
       path: 'assets/translations',
       fallbackLocale: Locale('fr', 'FR'),
-      child: App(),
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(
+            create: (_) => HomeViewModel(),
+          )
+        ],
+        child: App(),
+      ),
     ),
   );
 }
