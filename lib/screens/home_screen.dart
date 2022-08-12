@@ -28,6 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     Pet? pet = context.watch<PetProvider>().pet;
+    bool isLoading = context.watch<PetProvider>().isLoading;
 
     return Scaffold(
       appBar: AppBar(
@@ -78,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Text(LocaleKeys.display_pet.tr()),
             ),
             const SizedBox(height: 80),
-            _ResponseText(),
+            if (isLoading) CircularProgressIndicator() else _ResponseText(),
             const SizedBox(height: 20),
             if (pet != null && pet.id != null)
               Text(LocaleKeys.last_id

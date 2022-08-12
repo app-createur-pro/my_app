@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:my_app/data/exceptions.dart';
@@ -21,11 +23,13 @@ class PetProvider with ChangeNotifier {
       isLoading = true;
       notifyListeners();
       error = null;
+      Random random = Random();
+      int randomId = random.nextInt(1000000000);
       pet = await petRepository.createPet(
         Pet(
           name: name,
           photoUrls: ["veniam ad", "ipsum ullamco Ut in irure"],
-          id: 1,
+          id: randomId,
           category: Category(
             id: 37405040,
             name: "chien",
