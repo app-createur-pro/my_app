@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:my_app/screens/home_screen.dart';
-import 'package:my_app/view_models/home_view_model.dart';
+import 'package:my_app/state/pet_provider.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -18,7 +18,7 @@ void main() async {
       child: MultiProvider(
         providers: [
           ChangeNotifierProvider(
-            create: (_) => HomeViewModel(),
+            create: (_) => PetProvider(),
           )
         ],
         child: App(),

@@ -6,6 +6,7 @@
   "error_not_found": "Erreur, élément non trouvé",
   "error_not_authorized": "Erreur, accès non autorisé",
   "error_unknown": "Erreur inconnue",
+  "last_id": "Le dernier animal créé possède l'identifiant : {petId}",
   "pet_created": "L'animal {petName} avec l'id {petId} a été créé",
   "the_pet_displayed": "L'animal que vous affichez est {petName}"
 }

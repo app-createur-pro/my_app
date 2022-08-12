@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:my_app/generated/locale_keys.g.dart';
 import 'package:my_app/models/pet.dart';
 import 'package:my_app/screens/create_pet_screen.dart';
-import 'package:my_app/view_models/create_pet_view_model.dart';
+import 'package:my_app/state/pet_provider.dart';
 import 'package:my_app/view_models/home_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -20,13 +20,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  CreatePetViewModel createPetViewModel = CreatePetViewModel();
+  HomeViewModel homeViewModel = HomeViewModel();
+  PetProvider petProvider = PetProvider();
 
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    Pet? pet = context.watch<HomeViewModel?>()?.pet;
+    Pet? pet = context.watch<PetProvider>().pet;
 
     return Scaffold(
       appBar: AppBar(
@@ -43,43 +44,46 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Center(
         child: Form(
           key: _formKey,
-          child: Column(
-            children: [
-              SizedBox(
-                height: 30,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextFormField(
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter some text';
-                    }
-                    context.read<HomeViewModel>().setTextFieldValue(value);
-                    return null;
-                  },
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: LocaleKeys.enter_pet_id.tr(),
-                    fillColor: Colors.grey[300],
-                    filled: true,
-                  ),
-                  keyboardType: TextInputType.number,
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    context.read<HomeViewModel>().getPet();
+          child: Column(children: [
+            SizedBox(
+              height: 30,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextFormField(
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter some text';
                   }
+                  homeViewModel.setTextFieldValue(value);
+                  return null;
                 },
-                child: Text(LocaleKeys.display_pet.tr()),
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  hintText: LocaleKeys.enter_pet_id.tr(),
+                  fillColor: Colors.grey[300],
+                  filled: true,
+                ),
+                keyboardType: TextInputType.number,
               ),
-              const SizedBox(height: 80),
-              _ResponseText(),
-              const SizedBox(height: 20),
-            ],
-          ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  context
+                      .read<PetProvider>()
+                      .getPet(homeViewModel.textFieldValue ?? "");
+                }
+              },
+              child: Text(LocaleKeys.display_pet.tr()),
+            ),
+            const SizedBox(height: 80),
+            _ResponseText(),
+            const SizedBox(height: 20),
+            if (pet != null && pet.id != null)
+              Text(LocaleKeys.last_id
+                  .tr(namedArgs: {'petId': pet.id.toString()}))
+          ]),
         ),
       ),
     );
@@ -91,8 +95,8 @@ class _ResponseText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Pet? pet = context.watch<HomeViewModel?>()?.pet;
-    String? error = context.watch<HomeViewModel?>()?.error;
+    Pet? pet = context.watch<PetProvider>().pet;
+    String? error = context.watch<PetProvider>().error;
     if (pet != null || error != null) {
       if (error != null) {
         return Text(

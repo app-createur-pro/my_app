@@ -2,7 +2,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:my_app/generated/locale_keys.g.dart';
 import 'package:my_app/models/pet.dart';
+import 'package:my_app/state/pet_provider.dart';
 import 'package:my_app/view_models/create_pet_view_model.dart';
+import 'package:provider/provider.dart';
 
 import '../utils/navigation_utils.dart';
 
@@ -14,6 +16,8 @@ class CreatePetScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _formKey = GlobalKey<FormState>();
+    String? error = context.watch<PetProvider>().error;
+    bool isLoading = context.watch<PetProvider>().isLoading;
     return Scaffold(
       appBar: AppBar(),
       body: Form(
@@ -37,35 +41,53 @@ class CreatePetScreen extends StatelessWidget {
                 },
               ),
               ElevatedButton(
-                onPressed: () async {
-                  if (_formKey.currentState != null &&
-                      _formKey.currentState!.validate()) {
-                    Pet? pet = await createPetViewModel.createPet(
-                        name: createPetViewModel.textFieldValue ?? "pet name");
-                    if (createPetViewModel.error != null) {
-                      NavigationUtils.displaySnackBar(
-                        text: createPetViewModel.error!,
-                        context: context,
-                      );
-                    } else if (pet != null) {
-                      NavigationUtils.displaySnackBar(
-                        text: LocaleKeys.pet_created.tr(
-                          namedArgs: {
-                            'petName': "${pet.name}",
-                            'petId': "${pet.id}",
-                          },
-                        ),
-                        context: context,
-                      );
-                    }
-                  }
-                },
+                onPressed: isLoading
+                    ? null
+                    : () async {
+                        if (_formKey.currentState != null &&
+                            _formKey.currentState!.validate()) {
+                          Pet? pet = await context
+                              .read<PetProvider>()
+                              .createPet(
+                                  createPetViewModel.textFieldValue ?? "");
+
+                          displaySnackBar(
+                            pet: pet,
+                            context: context,
+                            error: error,
+                          );
+                        }
+                      },
                 child: Text(LocaleKeys.create_a_pet.tr()),
               ),
+              if (isLoading) CircularProgressIndicator()
             ],
           ),
         ),
       ),
     );
+  }
+
+  void displaySnackBar({
+    required Pet? pet,
+    required BuildContext context,
+    required String? error,
+  }) {
+    if (pet != null) {
+      NavigationUtils.displaySnackBar(
+        text: LocaleKeys.pet_created.tr(
+          namedArgs: {
+            'petName': "${pet.name}",
+            'petId': "${pet.id}",
+          },
+        ),
+        context: context,
+      );
+    } else if (error != null) {
+      NavigationUtils.displaySnackBar(
+        text: error,
+        context: context,
+      );
+    }
   }
 }

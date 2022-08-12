@@ -8,6 +8,7 @@ abstract class  LocaleKeys {
   static const error_not_found = 'error_not_found';
   static const error_not_authorized = 'error_not_authorized';
   static const error_unknown = 'error_unknown';
+  static const last_id = 'last_id';
   static const pet_created = 'pet_created';
   static const the_pet_displayed = 'the_pet_displayed';
 
