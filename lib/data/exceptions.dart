@@ -1,20 +1,36 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:my_app/generated/locale_keys.g.dart';
 
-class NotFoundException {}
+abstract class CustomException {
+  String errorMessage = LocaleKeys.error_unknown.tr();
+}
 
-class UnauthorizedException {}
+class NotFoundException extends CustomException {
+  @override
+  String get errorMessage => LocaleKeys.error_not_found.tr();
+}
 
-class UnknownException {}
+class UnauthorizedException extends CustomException {
+  @override
+  String get errorMessage => LocaleKeys.error_not_authorized.tr();
+}
 
-class ExceptionHandler {
-  static String getErrorMessage(dynamic error) {
-    if (error is NotFoundException) {
-      return LocaleKeys.error_not_found.tr();
-    } else if (error is UnauthorizedException) {
-      return LocaleKeys.error_not_authorized.tr();
+class SocketException extends CustomException {
+  @override
+  String get errorMessage => LocaleKeys.error_network.tr();
+}
+
+class UnknownException extends CustomException {
+  @override
+  String get errorMessage => LocaleKeys.error_unknown.tr();
+}
+
+extension ToCustomException on Object {
+  toCustomException() {
+    if (this is CustomException) {
+      return this;
     } else {
-      return LocaleKeys.error_unknown.tr();
+      return UnknownException();
     }
   }
 }

@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:my_app/data/exceptions.dart';
 import 'package:my_app/models/category.dart';
@@ -15,7 +16,7 @@ class PetProvider with ChangeNotifier {
 
   int? lastIdCreated;
 
-  Future<Pet?> createPet(String name) async {
+  Future<Either<CustomException, Pet>> createPet(String name) async {
     try {
       isLoading = true;
       notifyListeners();
@@ -39,12 +40,14 @@ class PetProvider with ChangeNotifier {
       lastIdCreated = pet?.id;
       isLoading = false;
       notifyListeners();
+      return Right(pet!);
     } catch (e) {
-      error = ExceptionHandler.getErrorMessage(e);
+      CustomException customException = e.toCustomException();
+      error = customException.errorMessage;
       isLoading = false;
       notifyListeners();
+      return Left(customException);
     }
-    return pet;
   }
 
   getPet(String textFieldValue) async {
@@ -56,7 +59,8 @@ class PetProvider with ChangeNotifier {
       isLoading = false;
       notifyListeners();
     } catch (e) {
-      error = ExceptionHandler.getErrorMessage(e);
+      CustomException customException = e as CustomException;
+      error = customException.errorMessage;
       isLoading = false;
       notifyListeners();
     }

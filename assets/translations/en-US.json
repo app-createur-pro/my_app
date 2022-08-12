@@ -3,6 +3,7 @@
   "display_pet": "Display pet",
   "enter_pet_name": "Enter a name",
   "enter_pet_id": "Enter an id",
+  "error_network": "Network error",
   "error_not_found": "Error, element not found",
   "error_not_authorized": "Error, access not authorized",
   "error_unknown": "Unknown error",

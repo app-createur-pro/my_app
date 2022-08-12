@@ -1,5 +1,7 @@
+import 'package:dartz/dartz.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:my_app/data/exceptions.dart';
 import 'package:my_app/generated/locale_keys.g.dart';
 import 'package:my_app/models/pet.dart';
 import 'package:my_app/state/pet_provider.dart';
@@ -46,15 +48,13 @@ class CreatePetScreen extends StatelessWidget {
                     : () async {
                         if (_formKey.currentState != null &&
                             _formKey.currentState!.validate()) {
-                          Pet? pet = await context
+                          Either<CustomException, Pet>? result = await context
                               .read<PetProvider>()
                               .createPet(
                                   createPetViewModel.textFieldValue ?? "");
-
                           displaySnackBar(
-                            pet: pet,
+                            dataResult: result,
                             context: context,
-                            error: error,
                           );
                         }
                       },
@@ -69,25 +69,23 @@ class CreatePetScreen extends StatelessWidget {
   }
 
   void displaySnackBar({
-    required Pet? pet,
+    required Either<CustomException, Pet>? dataResult,
     required BuildContext context,
-    required String? error,
   }) {
-    if (pet != null) {
-      NavigationUtils.displaySnackBar(
+    dataResult?.fold(
+      (CustomException failure) => NavigationUtils.displaySnackBar(
+        text: failure.errorMessage,
+        context: context,
+      ),
+      (Pet? pet) => NavigationUtils.displaySnackBar(
         text: LocaleKeys.pet_created.tr(
           namedArgs: {
-            'petName': "${pet.name}",
-            'petId': "${pet.id}",
+            'petName': "${pet?.name}",
+            'petId': "${pet?.id}",
           },
         ),
         context: context,
-      );
-    } else if (error != null) {
-      NavigationUtils.displaySnackBar(
-        text: error,
-        context: context,
-      );
-    }
+      ),
+    );
   }
 }
