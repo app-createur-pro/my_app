@@ -25,7 +25,7 @@ class PetProvider with ChangeNotifier {
       error = null;
       Random random = Random();
       int randomId = random.nextInt(1000000000);
-      pet = await petRepository.createPet(
+      Pet? pet = await petRepository.createPet(
         Pet(
           name: name,
           photoUrls: ["veniam ad", "ipsum ullamco Ut in irure"],
@@ -54,7 +54,7 @@ class PetProvider with ChangeNotifier {
     }
   }
 
-  getPet(String textFieldValue) async {
+  displayPet(String textFieldValue) async {
     try {
       isLoading = true;
       notifyListeners();
@@ -63,7 +63,7 @@ class PetProvider with ChangeNotifier {
       isLoading = false;
       notifyListeners();
     } catch (e) {
-      CustomException customException = e as CustomException;
+      CustomException customException = e.toCustomException();
       error = customException.errorMessage;
       isLoading = false;
       notifyListeners();

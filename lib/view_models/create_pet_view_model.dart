@@ -6,8 +6,4 @@ class CreatePetViewModel with ChangeNotifier {
 
   String? textFieldValue;
   TextEditingController textEditingController = TextEditingController();
-
-  createPet() async {
-    textEditingController.clear();
-  }
 }

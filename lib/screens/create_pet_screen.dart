@@ -18,7 +18,6 @@ class CreatePetScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _formKey = GlobalKey<FormState>();
-    String? error = context.watch<PetProvider>().error;
     bool isLoading = context.watch<PetProvider>().isLoading;
     return Scaffold(
       appBar: AppBar(),
@@ -28,9 +27,7 @@ class CreatePetScreen extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              SizedBox(
-                height: 30,
-              ),
+              SizedBox(height: 30),
               TextFormField(
                 controller: createPetViewModel.textEditingController,
                 validator: (value) {
@@ -56,6 +53,7 @@ class CreatePetScreen extends StatelessWidget {
                             dataResult: result,
                             context: context,
                           );
+                          createPetViewModel.textEditingController.clear();
                         }
                       },
                 child: Text(LocaleKeys.create_a_pet.tr()),

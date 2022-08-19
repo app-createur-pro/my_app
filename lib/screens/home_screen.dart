@@ -27,17 +27,21 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Pet? pet = context.watch<PetProvider>().pet;
     bool isLoading = context.watch<PetProvider>().isLoading;
+    int? lastIdCreated = context.watch<PetProvider>().lastIdCreated;
 
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
         actions: [
           IconButton(
-            onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => CreatePetScreen(),
-            )),
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => CreatePetScreen(),
+                ),
+              );
+            },
             icon: Icon(Icons.add),
           )
         ],
@@ -73,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 if (_formKey.currentState!.validate()) {
                   context
                       .read<PetProvider>()
-                      .getPet(homeViewModel.textFieldValue ?? "");
+                      .displayPet(homeViewModel.textFieldValue ?? "");
                 }
               },
               child: Text(LocaleKeys.display_pet.tr()),
@@ -81,9 +85,9 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(height: 80),
             if (isLoading) CircularProgressIndicator() else _ResponseText(),
             const SizedBox(height: 20),
-            if (pet != null && pet.id != null)
+            if (lastIdCreated != null)
               Text(LocaleKeys.last_id
-                  .tr(namedArgs: {'petId': pet.id.toString()}))
+                  .tr(namedArgs: {'petId': lastIdCreated.toString()}))
           ]),
         ),
       ),
