@@ -41,6 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   builder: (context) => CreatePetScreen(),
                 ),
               );
+              context.read<PetProvider>().clearPet();
             },
             icon: Icon(Icons.add),
           )
@@ -56,6 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextFormField(
+                controller: homeViewModel.textEditingController,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter some text';
@@ -78,6 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   context
                       .read<PetProvider>()
                       .displayPet(homeViewModel.textFieldValue ?? "");
+                  homeViewModel.textEditingController.clear();
                 }
               },
               child: Text(LocaleKeys.display_pet.tr()),

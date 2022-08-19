@@ -69,4 +69,9 @@ class PetProvider with ChangeNotifier {
       notifyListeners();
     }
   }
+
+  clearPet() {
+    pet = null;
+    notifyListeners();
+  }
 }
