@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/state/pet_provider.dart';
 
-class CreatePetViewModel with ChangeNotifier {
+class CreatePetViewModel {
   PetProvider petProvider = PetProvider();
 
   String? textFieldValue;
