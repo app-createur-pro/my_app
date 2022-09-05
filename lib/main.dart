@@ -1,9 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_app/blocs/pet_creation_bloc/pet_creation_bloc.dart';
-import 'package:my_app/blocs/pet_display_bloc/pet_display_bloc.dart';
-import 'package:my_app/screens/home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,17 +12,7 @@ void main() async {
       ],
       path: 'assets/translations',
       fallbackLocale: Locale('fr', 'FR'),
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider<PetCreationBloc>(
-            create: (BuildContext context) => PetCreationBloc(),
-          ),
-          BlocProvider<PetDisplayBloc>(
-            create: (BuildContext context) => PetDisplayBloc(),
-          ),
-        ],
-        child: App(),
-      ),
+      child: App(),
     ),
   );
 }
@@ -47,5 +33,16 @@ class App extends StatelessWidget {
       ),
       home: HomeScreen(title: title),
     );
+  }
+}
+
+class HomeScreen extends StatelessWidget {
+  final String title;
+
+  const HomeScreen({required this.title, Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
   }
 }
