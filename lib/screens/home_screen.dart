@@ -1,38 +1,31 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_app/generated/locale_keys.g.dart';
 import 'package:my_app/models/pet.dart';
 import 'package:my_app/screens/create_pet_screen.dart';
+import 'package:my_app/state/pet_creation_provider.dart';
 import 'package:my_app/state/pet_provider.dart';
 import 'package:my_app/view_models/home_view_model.dart';
-import 'package:provider/provider.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({
-    Key? key,
-    required this.title,
-  }) : super(key: key);
+class HomeScreen extends ConsumerWidget {
+  HomeScreen({required this.title});
 
   final String title;
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  HomeViewModel homeViewModel = HomeViewModel();
-  PetProvider petProvider = PetProvider();
+  final HomeViewModel homeViewModel = HomeViewModel();
 
   final _formKey = GlobalKey<FormState>();
 
   @override
-  Widget build(BuildContext context) {
-    bool isLoading = context.watch<PetProvider>().isLoading;
-    int? lastIdCreated = context.watch<PetProvider>().lastIdCreated;
-
+  Widget build(BuildContext context, WidgetRef ref) {
+    bool isLoading = ref.watch(petProvider.select((value) => value.isLoading));
+    int? lastIdCreated =
+        ref.watch(petProvider.select((value) => value.lastIdCreated));
+    final PetProvider _petProvider = ref.read(petProvider);
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(title),
         actions: [
           IconButton(
             onPressed: () {
@@ -41,7 +34,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   builder: (context) => CreatePetScreen(),
                 ),
               );
-              context.read<PetProvider>().clearPet();
+              ref.refresh(petCreationProvider);
+              _petProvider.refreshPet();
             },
             icon: Icon(Icons.add),
           )
@@ -77,9 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ElevatedButton(
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
-                  context
-                      .read<PetProvider>()
-                      .displayPet(homeViewModel.textFieldValue ?? "");
+                  _petProvider.displayPet(homeViewModel.textFieldValue ?? "");
                   homeViewModel.textEditingController.clear();
                 }
               },
@@ -98,13 +90,14 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class _ResponseText extends StatelessWidget {
+class _ResponseText extends ConsumerWidget {
   const _ResponseText({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    Pet? pet = context.watch<PetProvider>().pet;
-    String? error = context.watch<PetProvider>().error;
+  Widget build(BuildContext context, WidgetRef ref) {
+    Pet? pet = ref.watch(petProvider.select((value) => value.pet));
+    String? error = ref.watch(petProvider.select((value) => value.error));
+
     if (pet != null || error != null) {
       if (error != null) {
         return Text(
