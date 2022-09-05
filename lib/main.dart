@@ -1,18 +1,22 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:my_app/screens/home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   runApp(
-    EasyLocalization(
-      supportedLocales: [
-        Locale('en', 'US'),
-        Locale('fr', 'FR'),
-      ],
-      path: 'assets/translations',
-      fallbackLocale: Locale('fr', 'FR'),
-      child: App(),
+    ProviderScope(
+      child: EasyLocalization(
+        supportedLocales: [
+          Locale('en', 'US'),
+          Locale('fr', 'FR'),
+        ],
+        path: 'assets/translations',
+        fallbackLocale: Locale('fr', 'FR'),
+        child: App(),
+      ),
     ),
   );
 }
@@ -33,16 +37,5 @@ class App extends StatelessWidget {
       ),
       home: HomeScreen(title: title),
     );
-  }
-}
-
-class HomeScreen extends StatelessWidget {
-  final String title;
-
-  const HomeScreen({required this.title, Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
   }
 }
