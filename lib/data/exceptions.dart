@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:my_app/generated/locale_keys.g.dart';
 
@@ -15,7 +17,7 @@ class UnauthorizedException extends CustomException {
   String get errorMessage => LocaleKeys.error_not_authorized.tr();
 }
 
-class SocketException extends CustomException {
+class NetworkException extends CustomException {
   @override
   String get errorMessage => LocaleKeys.error_network.tr();
 }
@@ -29,6 +31,8 @@ extension ToCustomException on Object {
   toCustomException() {
     if (this is CustomException) {
       return this;
+    } else if (this is SocketException) {
+      return NetworkException();
     } else {
       return UnknownException();
     }
