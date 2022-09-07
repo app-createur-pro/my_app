@@ -1,11 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'package:my_app/data/api_response.dart';
 import 'package:my_app/models/pet.dart';
-import 'package:riverpod/riverpod.dart';
-
-final petRepositoryProvider = Provider<PetRepository>(
-  (ref) => PetRepository(),
-);
 
 class PetRepository {
   static final String baseUrl = 'https://petstore.swagger.io/v2/';
